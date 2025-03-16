@@ -1,6 +1,6 @@
 import AppSidebar from '@/components/AppSidebar';
 import DashboardNavBar from '@/components/DashboardNavBar';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { cookies } from 'next/headers';
 
 export default async function RootLayout({

@@ -1,41 +1,25 @@
 'use client';
-import { useState } from 'react';
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
 import {
   Home,
   Package,
   MessageSquare,
   Plug,
   Briefcase,
-  ChevronLeft,
-  ChevronRight,
-  Store,
   MessageCircleHeart,
 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-// import {
-//   Clover,
-//   MessageCircle,
-//   Home,
-//   PackageSearch,
-//   MessageCircleHeart,
-//   Building2,
-//   GitPullRequestCreate,
-// } from 'lucide-react';
 
 const AppSidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
-  console.log(pathName);
 
   // Function to handle the click event
   const handleMenuItemClick = (url: string) => {
