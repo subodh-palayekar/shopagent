@@ -8,44 +8,41 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(uuid())
-  firstName    String
-  lastName     String
-  email        String     @unique
-  phoneNumber  String
-  profilePic   String
-  clearkUserId String
-  businesses   Business[]
-  addresses    Address[]
+  id          String  @id @default(uuid())
+  firstName   String
+  lastName    String
+  email       String  @unique
+  phoneNumber String?
+  profilePic  String?
+  clerkUserId String  @unique
 }
 
-model Business {
-  id           String   @id @default(uuid())
-  name         String
-  logo         String?  // Optional
-  phoneNumber  String?  // Optional
-  website      String?  // Optional
-  description  String
-  storeTimings String[] // Optional (empty array is allowed)
-  owner        User     @relation(fields: [ownerId], references: [id])
-  ownerId      String
-  address      Address?
-  addressId    String?  @unique // Optional
+model Chat {
+  id         String   @id @default(uuid())
+  createdAt  DateTime
+  messages   Json
+  userId     String
+  businessId String
+  title      String?
 }
 
 model Address {
   id             String   @id @default(uuid())
-  addressLineOne String
-  addressLineTwo String
+  AddressLineOne String
+  AddressLineTwo String?
+  city           String
+  userId         String
   state          String
   country        String
-  postalCode     String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  pincode        String
+  createdAt      DateTime
+  updatedAt      DateTime
+}
 
-  user   User?   @relation(fields: [userId], references: [id])
-  userId String?
-
-  business   Business? @relation(fields: [businessId], references: [id])
-  businessId String?   @unique
+model Business {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  logo        String?
+  phoneNumber String?
 }
