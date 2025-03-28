@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { MessageCircleHeart } from 'lucide-react';
+import { MessageCircleHeart, PlusCircle } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import axios from 'axios';
@@ -44,6 +44,17 @@ const AppSidebar = () => {
 
       <SidebarContent>
         <SidebarMenu>
+          <SidebarMenuItem className="px-2 py-1 mt-3">
+            <SidebarMenuButton size={'default'} className="border-2" asChild>
+              <div
+                onClick={() => router.push('/chat')}
+                className="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+              >
+                <PlusCircle width={26} />
+                <span className="text-sm">New Chat</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           {chathistory.map((item: Chat) => (
             <SidebarMenuItem className="px-2 py-1" key={item.id}>
               <SidebarMenuButton

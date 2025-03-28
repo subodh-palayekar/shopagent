@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { capitalizeFirstLetter } from '@/lib/utils';
+import { Message } from 'ai';
+import { useChat } from '@ai-sdk/react';
 
 interface ProductListProps {
   product: {
@@ -25,6 +27,9 @@ interface ProductListProps {
     attributes: Record<string, string>;
     images: string[];
   };
+  chat_id: string;
+  business_id: string;
+  initialMessages: Message[];
 }
 
 const defaultImages = [
@@ -33,10 +38,21 @@ const defaultImages = [
   'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=60',
 ];
 
-export function ProductList({ product }: ProductListProps) {
+export function ProductList({
+  product,
+  chat_id,
+  business_id,
+  initialMessages,
+}: ProductListProps) {
   const images = product.images.length > 0 ? product.images : defaultImages;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const { append } = useChat({
+    id: chat_id,
+    body: { id: chat_id, business_id: business_id },
+    initialMessages: initialMessages,
+    maxSteps: 10,
+  });
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
@@ -167,7 +183,15 @@ export function ProductList({ product }: ProductListProps) {
         </div>
 
         <div className="mt-auto">
-          <Button className="w-full">
+          <Button
+            onClick={() => {
+              append({
+                role: 'user',
+                content: `I'd like to buy ${product.name}`,
+              });
+            }}
+            className="w-full"
+          >
             <ShoppingCart className="mr-2 h-4 w-4" />
             Add to Cart
           </Button>

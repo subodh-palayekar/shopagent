@@ -62,7 +62,7 @@ const AddressCard = ({
 
     append({
       role: 'user',
-      content: `I'd like to select this address:${formattedAddress}`,
+      content: `I'd like to select this address ${formattedAddress}`,
     });
   };
   return (

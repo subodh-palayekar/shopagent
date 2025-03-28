@@ -28,6 +28,8 @@ export async function POST(req: Request) {
     );
   }
 
+  console.log({ clerkUserId });
+
   const user = await db.user.findUnique({
     where: { clerkUserId },
     select: { id: true },
@@ -55,6 +57,8 @@ export async function POST(req: Request) {
     (message) => message.content.length > 0
   );
 
+  console.log({ id, business_id });
+
   const result = await streamText({
     model: google('gemini-1.5-flash'),
     system: `
@@ -64,7 +68,7 @@ export async function POST(req: Request) {
     - after every tool call, pretend you're showing the result to the user and keep your response limited to a phrase.
     - DO NOT output lists.
     - ask follow up questions to nudge user into the optimal flow
-    - business_id = ${business_id}. user_id = ${userId}
+    - This is business_id = ${business_id} & this is user_id = ${userId}
     - you will ask you question related to product specific to business or other business information 
     - please take order from user
     - for taking order please show them all the address that they have and then ask to select address
@@ -237,7 +241,22 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const { userId } = await auth();
+    let { userId: clerkUserId } = await auth();
+
+    if (!clerkUserId) {
+      return NextResponse.json(
+        { error: 'Error: No signed in user' },
+        { status: 401 }
+      );
+    }
+    const user = await db.user.findUnique({
+      where: { clerkUserId },
+      select: { id: true },
+    });
+
+    console.log({ user });
+
+    const userId = user?.id;
     if (!userId) {
       return NextResponse.json(
         { error: 'Error: No signed in user' },

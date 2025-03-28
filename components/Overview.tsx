@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 const Overview = ({
   id,
@@ -24,6 +26,7 @@ const Overview = ({
   business_id: string;
   initialMessages: Message[];
 }) => {
+  const router = useRouter();
   const { append } = useChat({
     id,
     body: { id, business_id },
@@ -95,13 +98,14 @@ const Overview = ({
         {overviewItems?.map((item, index) => (
           <div
             key={index}
-            onClick={async () => {
+            onClick={() => {
+              console.log('i am here');
               append({
                 role: 'user',
                 content: item.prompt,
               });
             }}
-            className=" bg-muted/50 text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 h- text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors justify-center flex flex-col gap-2"
+            className=" bg-muted/50 cursor-pointer text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 h- text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors justify-center flex flex-col gap-2"
           >
             <div className="flex items-center gap-2">
               <span className="text-zinc-500 dark:text-zinc-400">

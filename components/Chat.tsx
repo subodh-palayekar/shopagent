@@ -37,37 +37,36 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
 
   useEffect(() => {
     setShowOverview(initialMessages.length === 0 ? true : false);
-  }, []);
+  }, [id, business_id, initialMessages]);
 
   return (
     <div className=" flex flex-row justify-center  pb-4 md:pb-8 bg-background h-[calc(100dvh-60px)] ">
       <div className="flex flex-col justify-between items-center gap-4 max-w-[720px] w-full">
         <div
           ref={messagesContainerRef}
-          className="overflow-y-auto w-full flex flex-col gap-5"
+          className="overflow-y-auto w-full flex flex-col pt-4 gap-5"
         >
-          {showOverview ? (
+          {messages.length === 0 && (
             <Overview
               id={id}
               business_id={business_id}
               initialMessages={initialMessages}
             />
-          ) : (
-            <>
-              {messages.map((msg) => {
-                return (
-                  <div className="m-2" key={msg.id}>
-                    <MessagePreview
-                      chat_id={id}
-                      business_id={business_id}
-                      initialMessages={initialMessages}
-                      msg={msg}
-                    />
-                  </div>
-                );
-              })}
-            </>
           )}
+
+          {initialMessages.length > 0 &&
+            messages.map((msg) => {
+              return (
+                <div className="m-2" key={msg.id}>
+                  <MessagePreview
+                    chat_id={id}
+                    business_id={business_id}
+                    initialMessages={initialMessages}
+                    msg={msg}
+                  />
+                </div>
+              );
+            })}
 
           <div
             ref={messagesEndRef}

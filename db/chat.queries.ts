@@ -58,6 +58,7 @@ export async function getChatById({ id }: { id: string }) {
 }
 
 export async function getChatHistoryByUserID({ userId }: { userId: string }) {
+  console.log({ userId });
   try {
     const userChatHistroy = await db.chat.findMany({ where: { userId } });
 

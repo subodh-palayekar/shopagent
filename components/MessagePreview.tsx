@@ -13,6 +13,7 @@ import { Address } from '@prisma/client';
 import { Button } from './ui/button';
 import AddressCard, { AddAddress } from './AddressCard';
 import { PaymentMethodSelector } from './PaymentMethodSelector';
+import { Skeleton } from './ui/skeleton';
 
 const MessagePreview = ({
   msg,
@@ -41,7 +42,7 @@ const MessagePreview = ({
     >
       <div className="rounded-full  border-2">
         {role === 'assistant' ? (
-          <BotIcon width={26} />
+          <BotIcon width={30} />
         ) : user?.imageUrl ? (
           <Image
             className="rounded-full"
@@ -59,7 +60,16 @@ const MessagePreview = ({
         const type = ele.type;
 
         if (type === 'text') {
-          return <ReactMarkdown>{content}</ReactMarkdown>;
+          return (
+            <div
+              className={cn({
+                'max-w-[80%]': role === 'user',
+              })}
+            >
+              {' '}
+              <ReactMarkdown>{content}</ReactMarkdown>
+            </div>
+          );
         } else if (type === 'tool-invocation') {
           const toolInvocation = ele.toolInvocation;
 
@@ -74,7 +84,13 @@ const MessagePreview = ({
                   return (
                     <div className="flex flex-col gap-2">
                       {filteredResult?.map((product: any) => (
-                        <ProductList key={product.id} product={product} />
+                        <ProductList
+                          key={product.id}
+                          product={product}
+                          chat_id={chat_id}
+                          business_id={business_id}
+                          initialMessages={initialMessages}
+                        />
                       ))}
                     </div>
                   );
@@ -86,7 +102,7 @@ const MessagePreview = ({
 
                   return (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      {userAddress.map((address: Address) => (
+                      {userAddress?.map((address: Address) => (
                         <AddressCard
                           selectedAddress={selectedAddress}
                           setSelectedAddress={setSelectedAddress}
@@ -125,6 +141,12 @@ const MessagePreview = ({
                 break;
             }
           } else {
+            return (
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-[250px]" />
+                <Skeleton className="h-4 w-[200px]" />
+              </div>
+            );
           }
 
           return <></>;
