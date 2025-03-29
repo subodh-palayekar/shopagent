@@ -18,7 +18,7 @@ import ProductModel from '@/db/model';
 import { getChatHistoryByUserID, saveChat } from '@/db/chat.queries';
 
 export async function POST(req: Request) {
-  let { userId: clerkUserId } = await auth();
+  const { userId: clerkUserId } = await auth();
 
   await connectToDB();
   if (!clerkUserId) {
@@ -197,6 +197,7 @@ export async function POST(req: Request) {
           user_id: z.string(),
         }),
         execute: async ({ user_id }) => {
+          console.log(user_id);
           const paymentMethods = await getPaymentMethods();
           return paymentMethods;
         },
@@ -239,9 +240,9 @@ export async function POST(req: Request) {
   return result.toDataStreamResponse({});
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    let { userId: clerkUserId } = await auth();
+    const { userId: clerkUserId } = await auth();
 
     if (!clerkUserId) {
       return NextResponse.json(

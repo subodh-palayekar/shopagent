@@ -2,7 +2,7 @@ import { convertToUIMessages } from '@/lib/utils';
 import PreviewChat from '../../../../../components/Chat';
 import { getChatById } from '@/db/chat.queries';
 import { type Chat } from '@prisma/client';
-import { CoreMessage, Message, UIMessage } from 'ai';
+import { CoreMessage, Message } from 'ai';
 import { notFound } from 'next/navigation';
 import React from 'react';
 

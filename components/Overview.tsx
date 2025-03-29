@@ -1,21 +1,8 @@
 import { useChat } from '@ai-sdk/react';
 import { Message } from 'ai';
-import {
-  PackageSearch,
-  User,
-  Scale,
-  Tag,
-  Clock,
-  Headphones,
-  Gift,
-  Box,
-  Info,
-  ShoppingCart,
-} from 'lucide-react';
+import { PackageSearch, User, Gift, Info } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
-import { Button } from './ui/button';
-import { useRouter } from 'next/navigation';
 
 const Overview = ({
   id,
@@ -26,7 +13,6 @@ const Overview = ({
   business_id: string;
   initialMessages: Message[];
 }) => {
-  const router = useRouter();
   const { append } = useChat({
     id,
     body: { id, business_id },

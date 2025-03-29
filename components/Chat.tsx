@@ -1,12 +1,10 @@
 'use client';
-import { UIMessage, type Message } from 'ai';
-import React, { useEffect, useRef, useState } from 'react';
+import { type Message } from 'ai';
+import React, { useRef } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { ChatInput, ChatInputSubmit, ChatInputTextArea } from './Chat-input';
-import { useScrollToBottom } from '@/hooks/use-scroll-to-bottom';
 import MessagePreview from './MessagePreview';
-import { useRecoilState } from 'recoil';
-import { chatState } from '@/lib/state/atom';
+
 import Overview from './Overview';
 
 type ChatProps = {
@@ -33,12 +31,6 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
   const messagesContainerRef = useRef(null);
   const messagesEndRef = useRef(null);
 
-  const [showOverview, setShowOverview] = useState(false);
-
-  useEffect(() => {
-    setShowOverview(initialMessages.length === 0 ? true : false);
-  }, [id, business_id, initialMessages]);
-
   return (
     <div className=" flex flex-row justify-center  pb-4 md:pb-8 bg-background h-[calc(100dvh-60px)] ">
       <div className="flex flex-col justify-between items-center gap-4 max-w-[720px] w-full">
@@ -54,19 +46,18 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
             />
           )}
 
-          {initialMessages.length > 0 &&
-            messages.map((msg) => {
-              return (
-                <div className="m-2" key={msg.id}>
-                  <MessagePreview
-                    chat_id={id}
-                    business_id={business_id}
-                    initialMessages={initialMessages}
-                    msg={msg}
-                  />
-                </div>
-              );
-            })}
+          {messages.map((msg) => {
+            return (
+              <div className="m-2" key={msg.id}>
+                <MessagePreview
+                  chat_id={id}
+                  business_id={business_id}
+                  initialMessages={initialMessages}
+                  msg={msg}
+                />
+              </div>
+            );
+          })}
 
           <div
             ref={messagesEndRef}

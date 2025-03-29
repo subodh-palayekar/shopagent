@@ -1,16 +1,12 @@
 import { cn } from '@/lib/utils';
 import { Message } from 'ai';
-import { BotIcon, Check, UserIcon } from 'lucide-react';
+import { BotIcon, UserIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { MapPin } from 'lucide-react';
 import { ProductList } from './ProductCard';
 import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
-import { Card, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
 import { Address } from '@prisma/client';
-import { Button } from './ui/button';
 import AddressCard, { AddAddress } from './AddressCard';
 import { PaymentMethodSelector } from './PaymentMethodSelector';
 import { Skeleton } from './ui/skeleton';
@@ -26,9 +22,9 @@ const MessagePreview = ({
   business_id: string;
   initialMessages: Message[];
 }) => {
-  const { role, content, id, parts } = msg;
+  const { role, content, parts } = msg;
 
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { user, isLoaded } = useUser();
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
 
   if (!isLoaded) {
@@ -82,7 +78,7 @@ const MessagePreview = ({
                   const { filteredResult } = toolInvocation.result;
 
                   return (
-                    <div className="flex flex-col gap-2">
+                    <div key={toolCallId} className="flex flex-col gap-2">
                       {filteredResult?.map((product: any) => (
                         <ProductList
                           key={product.id}
