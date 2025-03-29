@@ -107,6 +107,7 @@ export async function POST(req: Request) {
             ]);
 
             const filteredResult = searchResults.map(
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               ({ embeddings, ...rest }) => rest
             );
 

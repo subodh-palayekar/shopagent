@@ -16,6 +16,7 @@ import { Separator } from '@/components/ui/separator';
 import { capitalizeFirstLetter } from '@/lib/utils';
 import { Message } from 'ai';
 import { useChat } from '@ai-sdk/react';
+import Image from 'next/image';
 
 interface ProductListProps {
   product: {
@@ -62,7 +63,7 @@ export function ProductList({
   };
 
   const attributeEntries = Object.entries(product.attributes).filter(
-    ([_, value]) => Boolean(value) // filter out attributes with empty or null values
+    ([, value]) => Boolean(value) // filter out attributes with empty or null values
   );
 
   // You can decide how many "main" attributes to display:
@@ -80,10 +81,12 @@ export function ProductList({
         className="relative w-full h-48 items-center flex-shrink-0 group
                    sm:w-48 sm:h-48"
       >
-        <img
+        <Image
           src={images[currentImageIndex]}
           alt={product.name}
           className="w-full h-full object-contain rounded-md"
+          width={100}
+          height={100}
         />
         {images.length > 1 && (
           <>

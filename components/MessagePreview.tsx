@@ -10,6 +10,7 @@ import { Address } from '@prisma/client';
 import AddressCard, { AddAddress } from './AddressCard';
 import { PaymentMethodSelector } from './PaymentMethodSelector';
 import { Skeleton } from './ui/skeleton';
+import { ProductType } from '@/db/model';
 
 const MessagePreview = ({
   msg,
@@ -22,7 +23,7 @@ const MessagePreview = ({
   business_id: string;
   initialMessages: Message[];
 }) => {
-  const { role, content, parts } = msg;
+  const { role, content, parts, id } = msg;
 
   const { user, isLoaded } = useUser();
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
@@ -58,6 +59,7 @@ const MessagePreview = ({
         if (type === 'text') {
           return (
             <div
+              key={id}
               className={cn({
                 'max-w-[80%]': role === 'user',
               })}
@@ -79,7 +81,7 @@ const MessagePreview = ({
 
                   return (
                     <div key={toolCallId} className="flex flex-col gap-2">
-                      {filteredResult?.map((product: any) => (
+                      {filteredResult?.map((product: ProductType) => (
                         <ProductList
                           key={product.id}
                           product={product}
@@ -138,7 +140,7 @@ const MessagePreview = ({
             }
           } else {
             return (
-              <div className="space-y-2">
+              <div key={'skeleton'} className="space-y-2">
                 <Skeleton className="h-4 w-[250px]" />
                 <Skeleton className="h-4 w-[200px]" />
               </div>
