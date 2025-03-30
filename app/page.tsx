@@ -1,5 +1,6 @@
 import { Hero } from '@/components/ui/animated-hero';
 import { Button } from '@/components/ui/button';
+import { LinkPreview } from '@/components/ui/link-preview';
 import { ModeToggle } from '@/components/ui/theme-toogle';
 import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
@@ -46,6 +47,22 @@ export default function LandingPage() {
         {/* hero section */}
         <section>
           <Hero />
+        </section>
+        {/* credits */}
+        <section>
+          <div className="flex justify-center flex-col  items-center">
+            <span>Designed & Developed By</span>
+            <LinkPreview
+              height={70}
+              width={70}
+              url="https://www.linkedin.com/in/subodhpalayekar/"
+              imageSrc="/subodh.jpg"
+              isStatic
+              className="font-bold bg-clip-text text-transparent  bg-gradient-to-br from-purple-500 to-pink-500"
+            >
+              Subodh Palayekar ❤️
+            </LinkPreview>{' '}
+          </div>
         </section>
       </div>
     </main>

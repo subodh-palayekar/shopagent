@@ -33,7 +33,7 @@ function Hero() {
   return (
     <div className="w-full">
       <div className=" mx-auto">
-        <div className="flex gap-8 py-20 items-center justify-center flex-col">
+        <div className="flex gap-8 py-16 items-center justify-center flex-col">
           <div>
             <Button
               variant="outline"
@@ -77,14 +77,14 @@ function Hero() {
               </span>
             </h1>
 
-            <p className="text-sm md:text-lg tracking-tight  text-muted-foreground max-w-xl text-center">
+            <p className="text-sm md:text-lg tracking-tight p-2 text-muted-foreground max-w-xl text-center">
               While customers enjoy frictionless chat-to-checkout journeys,
               businesses gain real-time analytics, reduced overhead, and a
               system that learns to sell better every day.
             </p>
           </div>
 
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3 ">
             <Button asChild size="lg" className="gap-4" variant="outline">
               <Link
                 href="https://in.linkedin.com/in/subodhpalayekar"
