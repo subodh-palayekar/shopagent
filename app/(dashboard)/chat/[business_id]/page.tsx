@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 export default async function ChatPage({
   params,
 }: {
-  params: { business_id: string };
+  params: Promise<{ business_id: string }>;
 }) {
   const { business_id } = await params;
 
