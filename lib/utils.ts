@@ -13,7 +13,7 @@ export async function getPaymentMethods() {
     {
       id: 'card',
       name: 'Credit/Debit Card',
-      description: 'Pay with Visa, Mastercard, or American Express',
+      description: 'Pay with Visa or Mastercard',
       enabled: true,
     },
     {
@@ -28,12 +28,12 @@ export async function getPaymentMethods() {
       description: 'Pay directly from your bank account',
       enabled: true,
     },
-    {
-      id: 'wallet',
-      name: 'Digital Wallet',
-      description: 'Pay using digital wallets',
-      enabled: true,
-    },
+    // {
+    //   id: 'wallet',
+    //   name: 'Digital Wallet',
+    //   description: 'Pay using digital wallets',
+    //   enabled: true,
+    // },
     {
       id: 'cod',
       name: 'Cash on Delivery',

@@ -19,13 +19,19 @@ export default function LandingPage() {
                 width={33}
                 height={33}
               />
-              <span className="tracking-tighter font-bold">Shop Agent</span>
+              <span className="tracking-wide text-white font-bold">
+                Shop Agent
+              </span>
             </div>
             <div className="flex items-center gap-4">
               <ModeToggle />
               <SignedOut>
                 <SignInButton>
-                  <Button variant={'default'} className="font-bold">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-4 p-4 rounded-xl"
+                  >
                     Get Started
                   </Button>
                 </SignInButton>

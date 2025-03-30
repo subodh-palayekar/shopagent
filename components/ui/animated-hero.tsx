@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { MoveRight, PhoneCall } from 'lucide-react';
+import { Heart, MoveRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -47,11 +47,11 @@ function Hero() {
             </StarBorder> */}
           </div>
           <div className="flex gap-4 flex-col items-center">
-            <h1 className="text-5xl max-w-2xl tracking-tighter text-center font-regular">
+            <h1 className="text-5xl max-w-2xl tracking-tighter text-center text-white font-regular">
               <span className="text-spektr-cyan-50">
                 Your Next Business Breakthrough is
               </span>
-              <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-2">
+              <span className="relative flex w-full justify-center overflow-hidden text-white text-center md:pb-4 md:pt-2">
                 &nbsp;
                 {titles.map((title, index) => (
                   <motion.span
@@ -91,13 +91,13 @@ function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Jump on a call <PhoneCall className="w-4 h-4" />
+                Show Some Love <Heart className="w-4 h-4 hover:fill-pink-700" />
               </Link>
             </Button>
 
             <Button asChild size="lg" className="gap-4">
-              <Link href={'/sign-up'}>
-                Create Account <MoveRight className="w-4 h-4" />
+              <Link href={'/chat'}>
+                Explore The Agent <MoveRight className="w-4 h-4" />
               </Link>
             </Button>
           </div>

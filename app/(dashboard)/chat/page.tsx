@@ -1,5 +1,5 @@
 'use client';
-import { Laptop, Shirt, Smartphone, Home } from 'lucide-react';
+import { Laptop, Shirt, Smartphone, Home, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -59,10 +59,10 @@ const page = () => {
       <h1 className="text-4xl font-bold text-center  mb-4">
         Our Business Partners
       </h1>
-      <p className="text-center  mb-12">
-        Select a business to start chatting with their representative
+      <p className="text-center text-2xl">
+        Select a business to start chatting with AI
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2  gap-8 ">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-8 sm:p-20 p-16 ">
         {businesses?.map((business) => (
           <BusinessCard key={business.id} business={business} />
         ))}
@@ -75,31 +75,41 @@ export default page;
 
 const BusinessCard = ({ business }: { business: Business }) => {
   const router = useRouter();
+
   return (
-    <div className="w-80 border-2 rounded-2xl">
-      <div className="group relative h-full overflow-hidden rounded-2xl border border-zinc-100 bg-white transition duration-200 hover:shadow-xl">
-        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-tl-lg rounded-tr-lg ">
-          <Image
-            src={business.image}
-            alt="thumbnail"
-            layout="fill"
-            objectFit="cover"
-            className={`transform object-cover transition duration-200 group-hover:scale-95 group-hover:rounded-2xl`}
-          />
-        </div>
-        <div className="p-4">
-          <h2 className=" text-lg font-bold text-zinc-700">{business.name}</h2>
-          <h2 className=" text-sm font-normal text-zinc-500">
-            {business.description}
-          </h2>
-          <div
-            onClick={() => router.push(`/chat/${business.business_id}`)}
-            className="mt-3 cursor-pointer flex flex-row items-center justify-between"
+    <div
+      onClick={() => router.push(`/chat/${business.id}`)}
+      className="group cursor-pointer relative overflow-hidden rounded-3xl aspect-[2/2] "
+    >
+      <div className="absolute inset-0">
+        <Image
+          src={business.image}
+          alt={business.name}
+          layout="fill"
+          className="transition-transform duration-700 group-hover:scale-105 object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/60" />
+      </div>
+
+      <div className="absolute inset-0 p-6 flex flex-col justify-between">
+        <div className="self-end">
+          <button
+            className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium 
+                           transition-transform duration-300 transform group-hover:-translate-y-1
+                           flex items-center gap-2"
           >
-            <div className="relative z-10 block rounded-xl bg-black px-6 py-2 text-xs font-bold text-white">
-              Start Chat
-            </div>
-          </div>
+            Chat Now
+            <ArrowUpRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="text-white">
+          <h2 className="text-2xl font-semibold mb-2 transform transition-transform duration-300 group-hover:translate-y-[-4px]">
+            {business.name}
+          </h2>
+          <p className="text-white/90 transform transition-transform duration-300 group-hover:translate-y-[-4px]">
+            {business.description}
+          </p>
         </div>
       </div>
     </div>

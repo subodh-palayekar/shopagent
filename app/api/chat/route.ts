@@ -198,9 +198,33 @@ export async function POST(req: Request) {
           user_id: z.string(),
         }),
         execute: async ({ user_id }) => {
-          console.log(user_id);
+          console.log('Payment method for ', user_id);
           const paymentMethods = await getPaymentMethods();
           return paymentMethods;
+        },
+      },
+
+      orderConfirmation: {
+        description: 'final confirmation to user when order is placed',
+        parameters: z.object({
+          user_id: z.string(),
+        }),
+        execute: async ({ user_id }) => {
+          console.log('Order confirmation for ', user_id);
+
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              resolve({
+                orderDetails: {
+                  orderNumber: `ORD-${Math.floor(
+                    100000 + Math.random() * 900000
+                  )}`,
+                  deliveryDate: '2-5 Business Days',
+                  orderDate: new Date().toLocaleDateString(),
+                },
+              });
+            }, 1000);
+          });
         },
       },
     },

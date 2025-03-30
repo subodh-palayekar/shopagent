@@ -64,7 +64,7 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
             className="shrink-0 min-w-[24px] min-h-[24px]"
           />
         </div>
-        <div className="w-full ">
+        <div className="w-full p-2 ">
           <ChatInput
             variant="default"
             value={input}

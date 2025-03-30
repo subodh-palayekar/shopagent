@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -8,6 +8,11 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
+});
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -29,7 +34,11 @@ export default function RootLayout({
         disableTransitionOnChange
       >
         <html lang="en" suppressHydrationWarning>
-          <body className={` ${inter.variable} antialiased`}>{children}</body>
+          <body
+            className={` ${inter.variable} ${poppins.variable} font-inter antialiased`}
+          >
+            {children}
+          </body>
         </html>
       </ThemeProvider>
     </ClerkProvider>

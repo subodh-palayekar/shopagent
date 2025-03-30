@@ -6,27 +6,41 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
-import { MessageCircleHeart, PlusCircle } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getTitleFromChat } from '@/lib/utils';
 import { Chat } from '@prisma/client';
+import Image from 'next/image';
+import { Skeleton } from './ui/skeleton';
+import Link from 'next/link';
 const AppSidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
   const [chathistory, setChatHistory] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { toggleSidebar } = useSidebar();
 
   // Function to handle the click event
   const handleMenuItemClick = (chat: Chat) => {
     router.push(`/chat/${chat.businessId}/${chat.id}`);
+    toggleSidebar();
   };
 
   const getchatHistory = async () => {
-    const result = await axios.get('/api/chat');
-    setChatHistory(result.data);
+    try {
+      setLoading(true);
+      const result = await axios.get('/api/chat');
+      setChatHistory(result.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -34,12 +48,21 @@ const AppSidebar = () => {
   }, [pathName]);
 
   return (
-    <Sidebar>
+    <Sidebar className="">
       {/* Enhanced Sidebar Header */}
-      <SidebarHeader className="p-3 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex size-6 items-center justify-center m-1">
-          <MessageCircleHeart className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-        </div>
+      <SidebarHeader className=" p-1 pt-[5px]">
+        <Link href={'/'}>
+          <div className="flex items-center justify-start gap-2 m-1">
+            <Image
+              src={'/logo.png'}
+              className="rounded-full "
+              alt="logo"
+              width={35}
+              height={35}
+            />
+            <span className="tracking-wide  font-bold">Shop Agent</span>
+          </div>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>
@@ -55,26 +78,35 @@ const AppSidebar = () => {
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          {chathistory.map((item: Chat) => (
-            <SidebarMenuItem className="px-2 py-1" key={item.id}>
-              <SidebarMenuButton
-                size={'default'}
-                tooltip={item.title || 'title'}
-                isActive={pathName.includes(item.id)}
-                asChild
-              >
-                <div
-                  onClick={() => handleMenuItemClick(item)}
-                  className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+          {loading
+            ? // Render three skeleton items while loading
+              Array.from({ length: 3 }).map((_, index) => (
+                <SidebarMenuItem
+                  className="px-2 py-1"
+                  key={`skeleton-${index}`}
                 >
-                  {/* <item.icon className="w-5 h-5  text-blue-600 dark:text-gray-300" /> */}
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {item.title || getTitleFromChat(item)}
-                  </span>
-                </div>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+                  <Skeleton className="h-6 w-full" />
+                </SidebarMenuItem>
+              ))
+            : chathistory.map((item: Chat) => (
+                <SidebarMenuItem className="px-2 py-1" key={item.id}>
+                  <SidebarMenuButton
+                    size={'default'}
+                    tooltip={item.title || 'title'}
+                    isActive={pathName.includes(item.id)}
+                    asChild
+                  >
+                    <div
+                      onClick={() => handleMenuItemClick(item)}
+                      className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    >
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {item.title || getTitleFromChat(item)}
+                      </span>
+                    </div>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
         </SidebarMenu>
       </SidebarContent>
     </Sidebar>

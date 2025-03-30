@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Message } from 'ai';
-import { BotIcon, UserIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import { UserIcon } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { ProductList } from './ProductCard';
 import { useUser } from '@clerk/nextjs';
@@ -11,6 +11,7 @@ import AddressCard, { AddAddress } from './AddressCard';
 import { PaymentMethodSelector } from './PaymentMethodSelector';
 import { Skeleton } from './ui/skeleton';
 import { ProductType } from '@/db/model';
+import { OrderConfirmation } from './OrderConfirmation';
 
 const MessagePreview = ({
   msg,
@@ -28,18 +29,36 @@ const MessagePreview = ({
   const { user, isLoaded } = useUser();
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
 
+  const [isToolCall, setIsToolCall] = useState(false);
+
+  useEffect(() => {
+    if (parts) {
+      const hasToolInvocation = parts.some(
+        (part) => part.type === 'tool-invocation'
+      );
+      setIsToolCall(hasToolInvocation);
+    }
+  }, [parts]);
+
   if (!isLoaded) {
     return null;
   }
   return (
     <div
-      className={cn('flex flex-col items-start gap-2', {
+      className={cn('flex flex-row items-center gap-2', {
         'flex-row-reverse justify-start': role === 'user',
+        'flex-col items-start': isToolCall,
       })}
     >
       <div className="rounded-full  border-2">
         {role === 'assistant' ? (
-          <BotIcon width={30} />
+          <Image
+            className="rounded-full"
+            src={'/logo.png'}
+            alt="bot profile img border-2 "
+            width={28}
+            height={28}
+          />
         ) : user?.imageUrl ? (
           <Image
             className="rounded-full"
@@ -61,7 +80,8 @@ const MessagePreview = ({
             <div
               key={id}
               className={cn({
-                'max-w-[80%]': role === 'user',
+                'max-w-[80%]':
+                  role === 'user' || (!isToolCall && role === 'assistant'),
               })}
             >
               {' '}
@@ -80,7 +100,10 @@ const MessagePreview = ({
                   const { filteredResult } = toolInvocation.result;
 
                   return (
-                    <div key={toolCallId} className="flex flex-col gap-2">
+                    <div
+                      key={toolCallId}
+                      className="flex flex-row flex-wrap gap-3"
+                    >
                       {filteredResult?.map((product: ProductType) => (
                         <ProductList
                           key={product.id}
@@ -133,6 +156,12 @@ const MessagePreview = ({
                       paymentMethods={paymentMethods}
                     />
                   );
+                }
+                break;
+              case 'orderConfirmation':
+                {
+                  const { orderDetails } = toolInvocation.result;
+                  return <OrderConfirmation orderDetails={orderDetails} />;
                 }
                 break;
               default:

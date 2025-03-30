@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Check, MapPin, PlusCircle } from 'lucide-react';
 import { Badge } from './ui/badge';
@@ -135,6 +135,7 @@ export const AddAddress = ({
     initialMessages: initialMessages,
     maxSteps: 10,
   });
+  const [open, setOpen] = useState(false);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const formattedAddress = `
@@ -151,6 +152,8 @@ export const AddAddress = ({
       content: `I'd like to create a new address with the following details:
 ${formattedAddress}`,
     });
+
+    setOpen(false);
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -165,10 +168,13 @@ ${formattedAddress}`,
     },
   });
   return (
-    <Dialog>
-      <Card>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Card className="justify-center">
         <DialogTrigger asChild>
-          <CardContent className="flex hover:cursor-pointer justify-between flex-col items-center gap-3">
+          <CardContent
+            onClick={() => setOpen(true)}
+            className="flex hover:cursor-pointer justify-between flex-col items-center gap-3"
+          >
             <PlusCircle size={26} />
             <Badge>Add Address</Badge>
           </CardContent>
