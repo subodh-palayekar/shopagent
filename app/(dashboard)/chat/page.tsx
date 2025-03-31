@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import { Laptop, Shirt, Smartphone, Home, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -91,16 +92,17 @@ const BusinessCard = ({ business }: { business: Business }) => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/60" />
       </div>
 
-      <div className="absolute inset-0 p-6 flex flex-col justify-between">
+      <div className="absolute inset-0 p-4 flex flex-col justify-between">
         <div className="self-end">
-          <button
+          <Button
+            onClick={() => router.push(`/chat/${business.id}`)}
             className="bg-white text-black px-4 py-2 rounded-full text-sm font-medium 
                            transition-transform duration-300 transform group-hover:-translate-y-1
                            flex items-center gap-2"
           >
             Chat Now
             <ArrowUpRight className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
 
         <div className="text-white">

@@ -1,10 +1,9 @@
 'use client';
 import { type Message } from 'ai';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { ChatInput, ChatInputSubmit, ChatInputTextArea } from './Chat-input';
 import MessagePreview from './MessagePreview';
-
 import Overview from './Overview';
 
 type ChatProps = {
@@ -25,11 +24,14 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
       },
     });
 
-  // const [messagesContainerRef, messagesEndRef] =
-  //   useRef<HTMLDivElement>();
-
   const messagesContainerRef = useRef(null);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   return (
     <div className=" flex flex-row justify-center  pb-4 md:pb-8 bg-background h-[calc(100dvh-60px)] ">
@@ -46,9 +48,9 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
             />
           )}
 
-          {messages.map((msg) => {
+          {messages.map((msg, index) => {
             return (
-              <div className="m-2" key={msg.id}>
+              <div className="m-2" key={`${index + msg.id}`}>
                 <MessagePreview
                   chat_id={id}
                   business_id={business_id}

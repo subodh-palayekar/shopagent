@@ -72,13 +72,13 @@ const MessagePreview = ({
         )}
       </div>
 
-      {parts?.map((ele) => {
+      {parts?.map((ele, index) => {
         const type = ele.type;
 
         if (type === 'text') {
           return (
             <div
-              key={id}
+              key={`${index + id}`}
               className={cn({
                 'max-w-[80%]':
                   role === 'user' || (!isToolCall && role === 'assistant'),
@@ -176,7 +176,7 @@ const MessagePreview = ({
             );
           }
 
-          return <></>;
+          return null;
         }
       })}
     </div>

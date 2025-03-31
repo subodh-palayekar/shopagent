@@ -71,10 +71,10 @@ const Overview = ({
             alt="logo"
             width={100}
             height={100}
-            className="w-[100px] sm:w-[120px]  lg:w-[150px]"
+            className="w-[80px] sm:w-[100px]  lg:w-[120px]"
           />
           <h2 className="text-2xl md:text-2xl lg:text-3xl font-semibold max-w-7xl mx-auto text-center  relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-            Orbit
+            Shop Agent
             <br />
             Simplifying your shopping journey
           </h2>

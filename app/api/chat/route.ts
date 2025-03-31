@@ -71,7 +71,7 @@ export async function POST(req: Request) {
     - This is business_id = ${business_id} & this is user_id = ${userId}
     - you will ask you question related to product specific to business or other business information 
     - please take order from user
-    - for taking order please show them all the address that they have and then ask to select address
+    - for taking order please show them all the address by envoking getAddress() tool  and then ask to select address
     - and then ask for payment method
     - and place order
     `,
