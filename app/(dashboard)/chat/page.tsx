@@ -19,7 +19,7 @@ const businesses: Business[] = [
     id: 'laptops',
     name: 'Tech Hub Laptops',
     description: 'Find the perfect laptop for work, gaming, or everyday use',
-    business_id: '9967741463',
+    business_id: 'f3339292-6506-46ad-8c71-adeab8f082a0',
     icon: <Laptop className="w-8 h-8" />,
     image:
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=1000',
@@ -29,7 +29,7 @@ const businesses: Business[] = [
     name: 'Smart Mobile Store',
     description: 'Latest smartphones and accessories at your fingertips',
     icon: <Smartphone className="w-8 h-8" />,
-    business_id: '9967741463',
+    business_id: '62120ad1-05f0-428e-89e0-630060eaba9b',
     image:
       'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=1000',
   },
@@ -39,7 +39,7 @@ const businesses: Business[] = [
     description:
       'Curated collection of designer wear, casual outfits, and seasonal fashion.',
     icon: <Shirt className="w-8 h-8" />,
-    business_id: '9967741463',
+    business_id: 'decd0dac-98d4-400c-be9f-1b5cc2d1ee89',
     image:
       'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1000',
   },
@@ -48,7 +48,7 @@ const businesses: Business[] = [
     name: 'Kitchen Essentials',
     description: 'Modern appliances for your culinary adventures',
     icon: <Home className="w-8 h-8" />,
-    business_id: '9967741463',
+    business_id: '33c00443-e266-4b44-8cd8-9dc0029288b4',
     image:
       'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&q=80&w=1000',
   },
@@ -79,7 +79,7 @@ const BusinessCard = ({ business }: { business: Business }) => {
 
   return (
     <div
-      onClick={() => router.push(`/chat/${business.id}`)}
+      onClick={() => router.push(`/chat/${business.business_id}`)}
       className="group cursor-pointer relative overflow-hidden rounded-3xl aspect-[2/2] "
     >
       <div className="absolute inset-0">

@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     - you will ask you question related to product specific to business or other business information 
     - please take order from user
     - for taking order please show them all the address by envoking getAddress() tool  and then ask to select address
-    - and then ask for payment method
+    - and then ask for payment method by calling this AvailblePaymentMethods() tool
     - and place order
     `,
     messages: coreMessages,
