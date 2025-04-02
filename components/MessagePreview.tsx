@@ -56,8 +56,8 @@ const MessagePreview = ({
             className="rounded-full"
             src={'/logo.png'}
             alt="bot profile img border-2 "
-            width={28}
-            height={28}
+            width={25}
+            height={25}
           />
         ) : user?.imageUrl ? (
           <Image

@@ -161,7 +161,7 @@ export function ProductList({
 
         {/* Product Info */}
         <div className="space-y-2 mb-4">
-          <div className="flex justify-between items-end">
+          <div className="flex justify-between items-start flex-col">
             <h2 className="text-xl font-bold tracking-tight transform transition-transform group-hover:translate-y-[-4px]">
               {product.name}
             </h2>

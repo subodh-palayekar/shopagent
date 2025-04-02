@@ -1,6 +1,6 @@
 import { useChat } from '@ai-sdk/react';
 import { Message } from 'ai';
-import { PackageSearch, User, Gift, Info } from 'lucide-react';
+import { PackageSearch, User } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -22,44 +22,38 @@ const Overview = ({
       window.history.replaceState({}, '', `/chat/${business_id}/${id}`);
     },
   });
+
   const overviewItems = [
     {
       title: 'I want to buy',
-      description: 'best selling product from shop',
-      prompt: 'I want to buy best selling product from shop',
+      description: 'product under 300$',
+      prompt: 'I want to buy product under 300$',
       icon: <PackageSearch size={24} />,
     },
     {
-      title: 'Product Recommendations',
-      description: 'based on my preferences',
-      prompt: 'Can you recommend products based on my interests?',
+      title: 'Show Addresses',
+      description: 'View all saved addresses',
+      prompt: 'Can you show me all my addresses',
       icon: <User size={24} />,
     },
-
     // {
     //   title: 'Current Deals',
     //   description: 'show ongoing discounts and offers',
     //   prompt: 'What are the current deals available?',
     //   icon: <Tag size={24} />,
     // },
-    {
-      title: 'Business Information',
-      description: 'Get to know about our business',
-      prompt: 'Tell me more about your business',
-      icon: <Info size={24} />,
-    },
     // {
-    //   title: 'New Arrivals',
-    //   description: 'show latest products',
-    //   prompt: 'What new products have arrived recently?',
-    //   icon: <Box size={24} />,
+    //   title: 'Business Help',
+    //   description: 'How you can help me with my shopping needs',
+    //   prompt: 'How you can help me with my shopping needs',
+    //   icon: <Info size={24} />,
     // },
-    {
-      title: 'Gift Ideas',
-      description: 'suggest perfect gifts',
-      prompt: 'Can you suggest gift ideas under $100?',
-      icon: <Gift size={24} />,
-    },
+    // {
+    //   title: 'Gift Ideas',
+    //   description: 'suggest perfect gifts',
+    //   prompt: 'Can you suggest gift ideas under $100?',
+    //   icon: <Gift size={24} />,
+    // },
   ];
 
   return (
@@ -85,7 +79,6 @@ const Overview = ({
           <div
             key={index}
             onClick={() => {
-              console.log('i am here');
               append({
                 role: 'user',
                 content: item.prompt,

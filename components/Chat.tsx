@@ -38,7 +38,7 @@ const Chat = ({ id, business_id, initialMessages }: ChatProps) => {
       <div className="flex flex-col justify-between items-center gap-4 max-w-[720px] w-full">
         <div
           ref={messagesContainerRef}
-          className="overflow-y-auto w-full flex flex-col pt-4 gap-5"
+          className="overflow-y-auto w-full flex flex-col pt-4 gap-5 text-[15px]"
         >
           {messages.length === 0 && (
             <Overview
