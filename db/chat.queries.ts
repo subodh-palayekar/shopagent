@@ -26,14 +26,14 @@ export async function saveChat({
       return await db.chat.update({
         where: { id: id },
         data: {
-          messages,
+          messages: JSON.stringify(messages),
         },
       });
     } else {
       return await db.chat.create({
         data: {
           id,
-          messages,
+          messages: JSON.stringify(messages),
           userId: user_id,
           businessId: business_id,
           title,

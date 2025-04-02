@@ -122,7 +122,10 @@ const MessagePreview = ({
                   const { userAddress } = toolInvocation.result;
 
                   return (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div
+                      key={toolCallId}
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                    >
                       {userAddress?.map((address: Address) => (
                         <AddressCard
                           selectedAddress={selectedAddress}

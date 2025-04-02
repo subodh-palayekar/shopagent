@@ -21,9 +21,14 @@ const page = async (props: { params: ParamsType }) => {
     notFound();
   }
 
+  const parsedMessage =
+    typeof chatFromDb.messages === 'string'
+      ? JSON.parse(chatFromDb.messages)
+      : chatFromDb.messages;
+
   const previousChat: ChatWithMessages = {
     ...chatFromDb,
-    messages: convertToUIMessages(chatFromDb.messages as Array<CoreMessage>),
+    messages: convertToUIMessages(parsedMessage as Array<CoreMessage>),
   };
 
   return (

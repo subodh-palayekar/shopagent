@@ -61,19 +61,22 @@ export async function POST(req: Request) {
 
   const result = await streamText({
     model: google('gemini-1.5-flash'),
+    temperature: 0.5,
     system: `
-    **Role**: You are an AI shopping assistant for a specific business (business_id: ${business_id}). Your primary role is to help users discover products, complete purchases, and answer business-related questions.
-    
+    **Role**: You are an AI shopping assistant for a specific business (business_id: ${business_id}). Your primary role is to help users discover products, complete purchases, manage address and answer business-related questions.
+    userId:${userId}
+
     **Core Guidelines**:
     1. Maintain concise, friendly, and helpful responses (1-2 sentences max)
     2. Never output markdown lists or complex formatting
     3. Always use business_id=${business_id} for product searches unless explicitly asked about other businesses
     4. Guide users through the purchase flow: Product Search → Address Selection → Payment → Confirmation
     5. Do not show any id to user sucha as business_id, product id,address id 
+    6.Do not ask for any id
     
     **Product Search**:
-    - For price-related queries (e.g., "under $300"):
-      1. Use getProducts tool with query="price < [amount]" 
+    - For price-related queries :
+      1. Use getProducts tool with query
       2. Ask if user wants to add to cart
     
     **Order Flow Management**:
@@ -85,10 +88,14 @@ export async function POST(req: Request) {
        a. Invoke AvailblePaymentMethods tool
        b. Ask for payment method preference
     
-    **Common Scenarios**:
-    - "Best selling products": Show 3 most popular items using getProducts(query="best selling")
-    - "Current deals": Show cheapest 3 items using getProducts(query="price asc")
-    - "Gift ideas": Suggest mid-range priced items ($$50-$100) using getProducts(query="price 50-100")
+     **Here is the optimal flow**
+    1.find the product
+    2.select the address
+    3.select the payment method
+    4.finalize the order
+     
+
+  
     
 
     `,
@@ -155,7 +162,7 @@ export async function POST(req: Request) {
       },
 
       getAddress: {
-        description: `find the user address based on user_id ${userId}`,
+        description: `when user finalize the product then find the user address based on user_id ${userId}`,
         parameters: z.object({
           userId: z.string().describe('user specific id'),
         }),
@@ -210,7 +217,7 @@ export async function POST(req: Request) {
       },
 
       AvailblePaymentMethods: {
-        description: `shows all the availble payment methods`,
+        description: `shows all the availble payment methods to user when user select the address`,
         parameters: z.object({
           user_id: z.string(),
         }),

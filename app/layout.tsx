@@ -3,6 +3,7 @@ import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/theme-provider';
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,7 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        layout: {
+          unsafe_disableDevelopmentModeWarnings: true,
+        },
+      }}
+    >
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
@@ -37,6 +44,7 @@ export default function RootLayout({
           <body
             className={` ${inter.variable} ${poppins.variable} font-inter antialiased`}
           >
+            <NextTopLoader color="#fe3e93" />
             {children}
           </body>
         </html>

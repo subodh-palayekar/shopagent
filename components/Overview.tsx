@@ -1,6 +1,6 @@
 import { useChat } from '@ai-sdk/react';
 import { Message } from 'ai';
-import { PackageSearch, User } from 'lucide-react';
+import { Info, User } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
@@ -24,12 +24,12 @@ const Overview = ({
   });
 
   const overviewItems = [
-    {
-      title: 'I want to buy',
-      description: 'product under 300$',
-      prompt: 'I want to buy product under 300$',
-      icon: <PackageSearch size={24} />,
-    },
+    // {
+    //   title: 'I want to buy',
+    //   description: 'product under 300$',
+    //   prompt: 'I want to buy product under 300$',
+    //   icon: <PackageSearch size={24} />,
+    // },
     {
       title: 'Show Addresses',
       description: 'View all saved addresses',
@@ -42,12 +42,12 @@ const Overview = ({
     //   prompt: 'What are the current deals available?',
     //   icon: <Tag size={24} />,
     // },
-    // {
-    //   title: 'Business Help',
-    //   description: 'How you can help me with my shopping needs',
-    //   prompt: 'How you can help me with my shopping needs',
-    //   icon: <Info size={24} />,
-    // },
+    {
+      title: 'Business Help',
+      description: 'How you can help me with my shopping needs',
+      prompt: 'How you can help me with my shopping needs',
+      icon: <Info size={24} />,
+    },
     // {
     //   title: 'Gift Ideas',
     //   description: 'suggest perfect gifts',

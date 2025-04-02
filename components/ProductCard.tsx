@@ -32,9 +32,7 @@ interface ProductListProps {
 }
 
 const defaultImages = [
-  'https://images.unsplash.com/photo-1635870723802-e88d76ae324e?w=800&auto=format&fit=crop&q=60',
-  'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=800&auto=format&fit=crop&q=60',
-  'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&auto=format&fit=crop&q=60',
+  'https://97zyk91lze.ufs.sh/f/pZbsqHhVCF9oBVJLwgYkmtkg1CB2XQr03l5nIcGfsNZD6pyU',
 ];
 
 export function ProductList({

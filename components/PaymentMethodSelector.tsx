@@ -37,15 +37,17 @@ export function PaymentMethodSelector({
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Select Payment Method</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {paymentMethods.map((method) => (
+        {paymentMethods.map((method, index) => (
           <Card
-            key={method.id}
+            key={`${method.id + index}`}
             className={`p-4 cursor-pointer transition-all ${
               selectedMethodId === method.id
                 ? 'border-2 border-primary bg-primary/10'
                 : 'hover:border-primary/30'
             } ${!method.enabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-            onClick={() => {
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+
               if (!method.enabled) {
                 return;
               }
