@@ -55,7 +55,7 @@ export default function LandingPage() {
             <LinkPreview
               height={70}
               width={70}
-              url="https://www.linkedin.com/in/subodhpalayekar/"
+              url="https://in.linkedin.com/in/subodhpalayekar"
               imageSrc="/subodh.jpg"
               isStatic
               className="font-bold bg-clip-text text-transparent  bg-gradient-to-br from-purple-500 to-pink-500"
