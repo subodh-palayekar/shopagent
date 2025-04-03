@@ -89,15 +89,13 @@ export async function POST(req: Request) {
        b. Ask for payment method preference
     
      **Here is the optimal flow**
-    1.find the product
-    2.select the address
-    3.select the payment method
-    4.finalize the order
+    1.find the product by this tool getProducts()
+    2.show the addresses by this tool getAddress()
+    3.select the address 
+    4.Show all payment method by this tool AvailblePaymentMethods()
+    5.select the payment method
+    6.finalize the order
      
-
-  
-    
-
     `,
     messages: coreMessages,
     tools: {
